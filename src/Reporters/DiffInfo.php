@@ -8,17 +8,17 @@ class DiffInfo
     public $parameters;
     public $fileExtensions;
 
-    public function __construct(string $diffProgram, array $fileExtensions, string $parameters = null)
+    public function __construct($diffProgram, array $fileExtensions, $parameters = null)
     {
         $this->diffProgram = self::resolveWindowsPath($diffProgram);
-        $this->parameters = $parameters ?? GenericDiffReporter::$STANDARD_ARGUMENTS;
+        $this->parameters = isset($parameters) ? $parameters : GenericDiffReporter::$STANDARD_ARGUMENTS;
         $this->fileExtensions = $fileExtensions;
     }
 
-    private static function resolveWindowsPath(string $diffProgram): string
+    private static function resolveWindowsPath($diffProgram)
     {
         $tag = "{ProgramFiles}";
-        
+
         $startsWith = substr($diffProgram, 0, strlen($tag)) === $tag;
         if ($startsWith) {
             $diffProgram = self::getPathInProgramFilesX86(substr($diffProgram, strlen($tag)));
@@ -26,13 +26,13 @@ class DiffInfo
         return $diffProgram;
     }
 
-    private static function getPathInProgramFilesX86(string $path): string
+    private static function getPathInProgramFilesX86($path)
     {
         $paths = self::getProgramFilesPaths();
         return self::getFirstWorking($path, $paths, "C:\\Program Files\\");
     }
 
-    public static function getFirstWorking(string $path, array $paths, string $ifNotFoundDefault): string
+    public static function getFirstWorking($path, array $paths, $ifNotFoundDefault)
     {
         $fullPath = $ifNotFoundDefault . $path;
         foreach ($paths as $p) {
@@ -44,7 +44,7 @@ class DiffInfo
         return $fullPath;
     }
 
-    public static function getProgramFilesPaths(): array
+    public static function getProgramFilesPaths()
     {
         $paths = [
             getenv("ProgramFiles(x86)"),

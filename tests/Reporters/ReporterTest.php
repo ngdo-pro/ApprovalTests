@@ -32,7 +32,7 @@ class ReporterTest extends \PHPUnit\Framework\TestCase
         $firstTestReporter = new TestReporter();
         $secondTestReporter = new TestReporter();
 
-        $reporter = new Reporters\FirstWorkingReporter($firstTestReporter, $secondTestReporter);
+        $reporter = new Reporters\FirstWorkingReporter([$firstTestReporter, $secondTestReporter]);
         $this->assertTrue($reporter->isWorkingInThisEnvironment("b.txt"));
         $reporter->report("a.txt", "b.txt");
         $this->assertTrue($firstTestReporter->reported);
@@ -45,7 +45,7 @@ class ReporterTest extends \PHPUnit\Framework\TestCase
         $firstTestReporter->working = false;
         $secondTestReporter = new TestReporter();
 
-        $reporter = new Reporters\FirstWorkingReporter($firstTestReporter, $secondTestReporter);
+        $reporter = new Reporters\FirstWorkingReporter([$firstTestReporter, $secondTestReporter]);
         $this->assertTrue($reporter->isWorkingInThisEnvironment("b.txt"));
         $reporter->report("a.txt", "b.txt");
         $this->assertFalse($firstTestReporter->reported);
@@ -56,7 +56,7 @@ class ReporterTest extends \PHPUnit\Framework\TestCase
     {
         $firstTestReporter = new TestReporter();
         $secondTestReporter = new TestReporter();
-        $combinationReporter = new CombinationReporter($firstTestReporter, $secondTestReporter);
+        $combinationReporter = new CombinationReporter([$firstTestReporter, $secondTestReporter]);
         $this->assertTrue($combinationReporter->isWorkingInThisEnvironment("b.txt"));
         $combinationReporter->report("a.txt", "b.txt");
         $this->assertTrue($firstTestReporter->reported);
@@ -68,7 +68,7 @@ class ReporterTest extends \PHPUnit\Framework\TestCase
         $firstTestReporter = new TestReporter();
         $firstTestReporter->throwError = true;
         $secondTestReporter = new TestReporter();
-        $combinationReporter = new CombinationReporter($firstTestReporter, $secondTestReporter);
+        $combinationReporter = new CombinationReporter([$firstTestReporter, $secondTestReporter]);
         $this->assertTrue($combinationReporter->isWorkingInThisEnvironment("b.txt"));
 
         $exception = null;

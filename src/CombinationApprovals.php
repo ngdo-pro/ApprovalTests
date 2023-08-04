@@ -63,7 +63,7 @@ class CombinationApprovals
                                 foreach ($values7 as $i7) {
                                     foreach ($values8 as $i8) {
                                         foreach ($values9 as $i9) {
-                                            $thisOutput = self::displayArguments($i1, $i2, $i3, $i4, $i5, $i6, $i7, $i8, $i9);
+                                            $thisOutput = self::displayArguments([$i1, $i2, $i3, $i4, $i5, $i6, $i7, $i8, $i9]);
                                             try {
                                                 $thisOutput .= $param($i1, $i2, $i3, $i4, $i5, $i6, $i7, $i8, $i9);
                                             } catch (SkipCombinationException $e) {
@@ -84,7 +84,7 @@ class CombinationApprovals
         Approvals::verifyString($output, $reporter);
     }
 
-    public static function displayArguments(...$args): string
+    public static function displayArguments(array $args)
     {
         return '[' . implode(', ', array_filter($args, function($i) { return $i !== self::$empty[0]; })) . "] => ";
     }

@@ -17,7 +17,7 @@ class ApprovalTest extends TestCase
 
     public function testFailedVerifyArray()
     {
-        $this->expectException(Exception::class);
+        $this->setExpectedException(Exception::class);
         $list = ['zero', 'one', 'two', 'three', 'four', 'five'];
         Approvals::verifyList($list, new QuietReporter());
     }

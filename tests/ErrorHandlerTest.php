@@ -6,7 +6,7 @@ class ErrorHandlerTest extends TestCase
 {
     public function testEWarning()
     {
-        $this->expectException(\ErrorException::class);
+        $this->setExpectedException(\ErrorException::class);
         trigger_error('Demo warning', E_USER_WARNING);
     }
 }
