@@ -14,7 +14,7 @@ class CombinationReporter
     /**
      * @param Reporter[] $reporters
      */
-    public function __construct(...$reporters)
+    public function __construct(array $reporters)
     {
         $this->reporters = $reporters;
     }

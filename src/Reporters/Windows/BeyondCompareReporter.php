@@ -8,6 +8,6 @@ class BeyondCompareReporter extends FirstWorkingReporter
 {
     public function __construct()
     {
-        parent::__construct(new BeyondCompare4ReporterWindows(), new BeyondCompare3ReporterWindows());
+        parent::__construct([new BeyondCompare4ReporterWindows(), new BeyondCompare3ReporterWindows()]);
     }
 }
